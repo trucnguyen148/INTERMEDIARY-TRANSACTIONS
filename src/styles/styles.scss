@@ -1,0 +1,91 @@
+$mainColor: #006666;
+$subColor: #CC5500;
+
+$mainColorIcon: #66B2B2;
+$subColorIcon: #FA8004;
+
+$mainColorBtn: #D7ECEC;
+$subColorBtn: #FFE0CA;
+
+$mainBasicColor: #000000;
+$subBasicColor: #fff;
+
+$activeLink: #006666;
+
+$headerSize: 17pt;
+$subSize: 12pt;
+
+.container{
+    margin: 1vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar{
+    padding: 0.2rem;
+}
+  
+.navList{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // float: right;
+    padding-left: 2rem;
+    padding-bottom: 2rem;
+    align-items: baseline;
+    font-weight: bold;
+    
+}
+
+.colorList{
+    color: #000000;
+    text-decoration: none;
+    font-size: $headerSize;
+    padding: 6px 0px;
+}
+
+.activeLink, .colorList:hover{
+    color: $activeLink;
+    border-bottom: 3px solid $activeLink;  
+}
+
+.activeSubLink{
+    color: $activeLink;
+}
+
+.navAccount{
+    background-color: $mainBasicColor;
+    width: 15%;
+    border: transparent;
+    text-align: center;
+    
+
+}
+.accountIcon{
+    width: 100%;
+    color: $subBasicColor;
+    background-color: $mainBasicColor;
+
+    
+}
+.colorListAccount{
+    color: #fff;
+    text-decoration: none;
+    font-size: $subSize;
+}
+
+.spaceLine{
+    margin-bottom: 0.7rem
+}
+
+.activeLink, .colorListAccount:hover{
+    color: $activeLink;
+    border-bottom: 3px solid $activeLink;  
+}
+
+// .content{
+//     position: absolute;
+//     top: 20px;
+//     left: 16px;
+//     font-size: 18px;
+// }
