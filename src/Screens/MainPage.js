@@ -3,15 +3,27 @@ import React, { Component } from 'react';
 import { Router, NavLink} from "react-router-dom";
 
 import 'semantic-ui-css/semantic.min.css';
-import './../styles/styles.scss';
+import './../styles/navbar.scss';
 
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown, Icon } from 'semantic-ui-react';
 import history from './../Routes/history';
-import Routes from './../Routes/Routes';
 
-export default class MainPage extends Component {
+class MainPage extends Component {
+  constructor(props){
+    super(props);
+    
+    this.onLogOut = this.onLogOut.bind(this);
+
+  }
+
+  onLogOut(){
+    localStorage.removeItem("jwt");
+    window.location = "/terms"      
+  }
+
 
   render(){
+
     return (
       <Router history={history}>
         <nav className="container navbar ">
@@ -46,7 +58,15 @@ export default class MainPage extends Component {
             </li>
             <li className="navAccount">
               <div className="accountIcon">
-              <Dropdown 
+                
+                {localStorage.getItem("jwt") === null
+                ? <button style={{
+                  width: '100%', 
+                  color: 'white',
+                  backgroundColor: 'black'
+                  
+                }} onClick={()=> history.push("/login")}><Icon name="user"/></button>
+                : <Dropdown 
                 icon='user'
                 floating
                 labeled
@@ -57,9 +77,8 @@ export default class MainPage extends Component {
                   width: '100%', 
                   color: 'white',
                   backgroundColor: 'black'
-                  
                 }}
-              >
+              > 
                 <Dropdown.Menu style={{backgroundColor: '#000000'}} >
                   <Dropdown.Item className="spaceLine">
                     <NavLink 
@@ -88,17 +107,22 @@ export default class MainPage extends Component {
                       Quản lí điểm
                     </NavLink> 
                   </Dropdown.Item>
+                  <Dropdown.Item><button onClick={this.onLogOut}>Log out</button></Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
+                }
+                
               </div>
             </li>
+
           </ul>
         </nav>
-        <Routes/>
+        
       </Router>
 
     );
   }
 }
 
+export default MainPage;
 

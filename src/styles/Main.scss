@@ -1,0 +1,99 @@
+@import "./colors.scss";
+
+.imgMain{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centerMain{
+    display:flex;
+    height:80vh;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.formMain{
+    width: 90%;
+    display: block;
+    text-align: center;
+    float: right;
+}
+
+.formPoint{
+    color: $mainColor;
+}
+
+.formTransaction{
+    color: $subColor;
+}
+
+.inputMain{
+    width: 70%;
+    background-color: transparent;
+    border-radius: 7px;
+    margin-left: 2rem;
+    
+}
+
+.inputBorderMain{
+    border: 1px solid $mainColor;
+}
+
+.textAreaMain{
+    height: 150px;
+}
+
+.inputFileMain{
+    width: 70%;
+    background-color: transparent;
+    border-radius: 7px;
+    margin-left: 2rem;
+}
+
+.verticalSpaceMain{
+    margin-bottom: 2rem;
+}
+
+.titleMain{
+    margin-bottom: 5rem;
+    text-align: center;
+    text-transform: uppercase;
+    
+    color: $subBasicColor;
+    width: 40%;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.addPoint{
+    background-color: $mainColor;
+}
+
+.createTransaction{
+    background-color: $subColor;
+}
+
+.btnMain{
+    background-color: $mainColorBtn;
+    color: $mainColor;
+    width: 30%;
+    padding: 1rem 0;
+    border-radius: 8px;
+    border: transparent;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 2rem;
+    float: right;
+}
+
+.btnTest{
+    width: 90%;
+}
+
+.verticalLineMain{
+    border-left: 1px solid $mainColor;
+    height: 80%;
+}

@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
+
+import history from './../Routes/history';
+
 import { getJwt } from '../helpers/jwt';
 import { withRouter } from 'react-router-dom';
+import { sessionURL } from '../Routes/sessionURL';
+
 import axios from 'axios';
 
 class AuthenticatedComponent extends Component{
@@ -15,21 +20,23 @@ class AuthenticatedComponent extends Component{
     componentDidMount(){
         const jwt = getJwt;
         if(!jwt) {
-            this.props.history.push('/login');
+            history.push('/');
         }
 
-        const session_url = "http://meoo164.tk:8085/gdtg-public/profile"
+        const url = sessionURL + "profile"
 
-        axios.get(
-            session_url, 
-            {headers: {Authorization: `Bearer $(jwt)`}}
-        )
-        .then(res =>this.setState({
-            user: res.data
-        })).catch(err => {
-            localStorage.removeItem("jwt");
-            this.props.history.push("/login");
-        })
+        axios
+            .get(
+                url, 
+                {headers: {Authorization: `Bearer ${jwt()}`}}
+            )
+            .then(res =>this.setState({
+                user: res.data
+            }))
+            .catch(err => {
+                localStorage.removeItem("jwt");
+                history.push("/login");        
+            })
     }
     render(){
         if(this.state.user === undefined){

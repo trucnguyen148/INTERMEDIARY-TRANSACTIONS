@@ -1,0 +1,119 @@
+@import "./colors.scss";
+
+.center{
+    display:flex;
+    height:100vh;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.img{
+    width: 100%;
+}
+
+
+.background{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    background-color: #C3DBDB;
+}
+
+.heightBackground{
+    height: 70%;
+}
+
+.heightbackgroundRegister{
+    height: 80%;
+}
+.verticalCenter{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // height: 20%;
+    margin: auto;
+}
+
+.height{
+    height: 20%;
+}
+
+.heightLogin{
+    height: 40%;
+}
+
+.heightRegister{
+    height: 60%;
+}
+
+.btnCenter{
+    text-align: center;
+}
+
+.btn{
+    background-color: $mainColor;
+    color: $subBasicColor;
+    width: 30%;
+    padding: 1rem 0;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.form{
+    width: 65%;
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btnLoginRegister{
+    background-color: $mainColor;
+    color: $subBasicColor;
+    width: 40%;
+    padding: 1rem 0;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 2rem;
+}
+
+.input{
+    width: 70%;
+    background-color: transparent;
+    border: 1px solid $mainColor;
+    border-radius: 7px;
+    height: 2.5rem;
+    margin-left: 2rem;
+}
+
+.iconColor {
+    color: $mainColor;
+    font-size: x-large;
+}
+
+.lineHeight{
+    margin-bottom: 2rem;
+}
+
+.title{
+    margin-bottom: 4rem;
+    
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.errors{
+    color: red;
+    
+}
+
+.spaceErrors{
+    margin-top: 2rem;
+    text-align: center;
+}
+

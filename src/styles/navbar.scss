@@ -1,19 +1,5 @@
-$mainColor: #006666;
-$subColor: #CC5500;
-
-$mainColorIcon: #66B2B2;
-$subColorIcon: #FA8004;
-
-$mainColorBtn: #D7ECEC;
-$subColorBtn: #FFE0CA;
-
-$mainBasicColor: #000000;
-$subBasicColor: #fff;
-
-$activeLink: #006666;
-
-$headerSize: 17pt;
-$subSize: 12pt;
+@import "./colors.scss";
+@import "./size.scss";
 
 .container{
     margin: 1vh;
@@ -34,7 +20,6 @@ $subSize: 12pt;
     padding-bottom: 2rem;
     align-items: baseline;
     font-weight: bold;
-    
 }
 
 .colorList{
