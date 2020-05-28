@@ -44,17 +44,20 @@ class AddPoint extends Component{
         const url = sessionURL + "points";
         const {amount, message, selectedFile} = this.state;
         const data = new FormData();
-        data.append('file', this.state.selectedFile);
+        data.append('file', selectedFile);
 
         const validInput = amount !== "" && selectedFile !== null;
         if(validInput){
-            axios.post(url, {
-                amount: amount,
-                message: message,
-                image : btoa(data)
-            }, {
-                headers: header
-            })
+            axios.post(url, 
+                {
+                    headers: header
+                },
+                {
+                    amount: amount,
+                    message: message,
+                    image : data
+                }
+            )
             .then(response => { 
                 alert("sucess");
                 console.log(response)
