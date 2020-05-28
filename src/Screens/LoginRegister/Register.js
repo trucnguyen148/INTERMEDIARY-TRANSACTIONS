@@ -27,6 +27,7 @@ class Register extends Component{
                 password: "",
                 email: ""
             },
+            errorMessage: "",
             isCheck: false
         };
         this.onChange = this.onChange.bind(this);
@@ -36,6 +37,16 @@ class Register extends Component{
     onChange(e){
         e.preventDefault();
         const { name, value } = e.target;
+        const {username, email, password} = this.state;
+        const validInput = username !== "" && email !== "" && password !== "";
+
+        if(validInput){
+            this.setState({
+            errorMessage: ""
+            })
+        }
+        
+
         let errors = this.state.errors;
 
         switch (name) {
@@ -93,15 +104,20 @@ class Register extends Component{
                             username: "",
                             password: "",
                             email: ""
-                        }
+                        },
+                        errorMessage: err.message
                     });
                 })
             } else{
-                alert("Bạn cần phải điền đúng theo các yêu cầu")
+                this.setState({
+                    errorMessage: "Bạn cần phải điền đúng theo các yêu cầu"
+                })
             }
             
         } else{
-            alert("Bạn cần nhập đầy đủ thông tin để đăng ký")
+            this.setState({
+                errorMessage: "Bạn cần nhập đầy đủ thông tin để đăng ký"
+            })
         }
     }
 
@@ -177,6 +193,9 @@ class Register extends Component{
                                             <input type="checkbox" readonly="" tabindex="0" value={isCheck}/>
                                             
                                             <label>Tôi đồng ý với các <button onClick={()=> history.push("/terms")}>điều khoản</button></label>
+                                        </div>
+                                        <div className="spaceErrors">
+                                        <span className="errors"> {this.state.errorMessage} </span>
                                         </div>
                                         <div>
                                             <button type="submit" className="btnLoginRegister">Đăng ký</button>

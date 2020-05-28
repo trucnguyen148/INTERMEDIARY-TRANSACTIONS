@@ -16,7 +16,6 @@
 .formMain{
     width: 90%;
     display: block;
-    text-align: center;
     float: right;
 }
 
@@ -28,20 +27,26 @@
     color: $subColor;
 }
 
-.inputMain{
-    width: 70%;
-    background-color: transparent;
-    border-radius: 7px;
-    margin-left: 2rem;
-    
+.spaceLine{
+    margin-bottom: 4rem;
 }
 
-.inputBorderMain{
+.inputMain{
+    width: 85%;
+    background-color: transparent;
+    border-radius: 7px;  
+}
+
+.inputBorderAddPoint{
     border: 1px solid $mainColor;
 }
 
+.inputBorderCreateTransaction{
+    border: 1px solid $subColor;
+}
+
 .textAreaMain{
-    height: 150px;
+    height: 120px;
 }
 
 .inputFileMain{
@@ -55,11 +60,14 @@
     margin-bottom: 2rem;
 }
 
+.space{
+    margin-top: 2rem;
+}
+
 .titleMain{
     margin-bottom: 5rem;
     text-align: center;
     text-transform: uppercase;
-    
     color: $subBasicColor;
     width: 40%;
     padding: 1rem;
@@ -77,8 +85,6 @@
 }
 
 .btnMain{
-    background-color: $mainColorBtn;
-    color: $mainColor;
     width: 30%;
     padding: 1rem 0;
     border-radius: 8px;
@@ -89,11 +95,56 @@
     float: right;
 }
 
-.btnTest{
+.btnAddPoint{
+    color: $mainColor;
+    background-color: $mainColorBtn;
+}
+
+.btnCreateTransaction{
+    color: $subColor;
+    background-color: $subColorBtn;
+}
+
+.btnWidth{
     width: 90%;
 }
 
 .verticalLineMain{
-    border-left: 1px solid $mainColor;
+    border-left: 2px solid $mainColor;
     height: 80%;
+}
+
+.account{
+    margin-left: -5rem;
+    margin-top: 4rem;
+}
+
+.borderAccount{
+    border: 2px solid $mainColor;
+    padding: 1rem;
+}
+
+.selected {
+    border: none;
+    background-color: $mainColorBtn;
+    padding: 1rem;
+}
+
+.sameRow{
+    display: flex;
+    flex-direction: row;
+}
+
+.marginLeft{
+    margin-left: 5rem;
+}
+
+.subContainer{
+    color: $mainColor;
+    margin: 4rem 2rem;
+}
+
+.iconSpace{
+    margin-right: 2rem;
+    margin-bottom: 2rem;
 }

@@ -15,7 +15,7 @@ class Login extends Component{
         this.state = {
             username: "",
             password: "",
-            errorMessage: ''
+            errorMessage: ""
         };
 
         this.onChange = this.onChange.bind(this);
@@ -30,21 +30,31 @@ class Login extends Component{
     onSubmit(e){
         e.preventDefault();
         const url = sessionURL + "token";
-        axios.post(url, {
-            username: this.state.username,
-            password: btoa(this.state.password),
-        })
-        .then(res => {
-            localStorage.setItem('jwt', res.data.data.access_token);
-            this.props.history.push("/account");
-        })
-        .catch(err => { 
-            this.setState({errorMessage: err.message});
-            this.setState({
-                username: '',
-                password: ''
-              });
-        })
+
+        const {username, password} = this.state;
+
+        const validInput = username !== "" && password !== "";
+
+        if (validInput){
+            axios.post(url, {
+                username: this.state.username,
+                password: btoa(this.state.password),
+            })
+            .then(res => {
+                localStorage.setItem('jwt', res.data.data.access_token);
+                this.props.history.push("/account");
+            })
+            .catch(err => { 
+                this.setState({errorMessage: "Tài khoản hoặc mật khẩu không đúng"});
+                this.setState({
+                    username: '',
+                    password: ''
+                  });
+            })
+        } else {
+            this.setState({errorMessage: "Bạn cần điền đủ thông tin tài khoản và mật khẩu"})
+        }
+       
     }
 
     render(){
@@ -82,10 +92,11 @@ class Login extends Component{
                                                 className="input"
                                             />
                                         </div>
-                                        <button type="submit" className="btnLoginRegister">Đăng nhập</button>
                                         <div className="spaceErrors">
-                                        { this.state.errorMessage && <span className="errors"> Tài khoản hoặc mật khẩu của bạn không đúng </span> }
+                                        <span className="errors"> {this.state.errorMessage} </span>
                                         </div>
+                                        <button type="submit" className="btnLoginRegister">Đăng nhập</button>
+                                        
                                        
                                     </form>
                                     

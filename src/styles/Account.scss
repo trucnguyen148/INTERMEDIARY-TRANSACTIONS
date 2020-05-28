@@ -1,0 +1,82 @@
+@import "./colors.scss";
+
+.container{
+    color: $mainColor;
+    text-align: center; 
+}
+
+.imgAccount{
+    opacity: 56%;
+    width: 80%;
+}
+
+.navbarAccount{
+    position: relative;
+    display: inline-block;
+    border: 1px solid $mainColor;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
+    color: $mainColor;
+}
+
+.navbarAccount:hover, .activeNavBarAccount{
+    border: transparent;
+    background-color: $mainColor;
+    color: $subBasicColor;
+}
+
+.titleDetailAccount{
+    background-color: $mainColor;
+    color: $subBasicColor;
+    padding-top: 2rem;
+    // padding-bottom: auto;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
+.divider{
+    width: 100%;
+    border-color: $mainColor;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dividerBottom{
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+.lineCenter{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.btnAccount{
+    width: 40%;
+    padding: 1rem 0;
+    border-radius: 8px;
+    border: transparent;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 2rem;
+    background-color: $mainColorBtn;
+    color: $mainColor;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.point{
+    margin-top: 6rem;
+    font-size: 5rem;
+}
+
+.titleAccount{
+    text-transform: uppercase;
+}
+
+.marginTopTitle{
+    margin-top: 20%;
+}

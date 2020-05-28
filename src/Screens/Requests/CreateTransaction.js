@@ -16,8 +16,10 @@ class CreateTransaction extends Component{
         this.state = {
             points: "",
             receiver: "",
-            comment: ""
-        }
+            comment: "",
+            errorMessage: ""
+        };
+
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -32,61 +34,28 @@ class CreateTransaction extends Component{
         const {points, receiver, comment} = this.state;
         const validInput = points !== "" && receiver !== "" && comment !== "";
         
-        // axios.post(url, {
-        //     points: points,
-        //     partner_id:  receiver,
-        //     comment : comment
-        // }, {
-        //         headers: header
-        // })
-        // .then(response => { 
-        //     console.log(response)
-        // })
-        // .catch(error => {
-        //     console.log(error.response)
-        // });
-
-        
 
         if(validInput){
             axios.post(url, {
                 points: points,
-                partner_id:  receiver,
+                partner_id: receiver,
                 comment : comment
             }, {
                 headers: header
             })
             .then(response => { 
+                alert("sucess");
                 console.log(response)
             })
-            .catch(error => {
-                console.log(error.response)
+            .catch(err => {
+                this.setState({errorMessage: err.message
+                });
+                console.log(err.response)
             });
         }
         else{
             alert("type")
         }
-        // const transaction = {
-        //     points: this.state.points,
-        //     // partner_id: this.state.receiver,
-        //     comment: this.state.comment
-        // }
-        // axios
-        //     .post(url, {
-        //         headers: header, 
-        //         data: {
-        //             transaction
-        //         }}
-        //     )
-        //     .then(res => {
-        //         alert("done");
-        //         console.log("sucess")
-                
-        //     })
-            // .catch(err => {
-            //     alert("wrong");
-            //     console.error("error: ", err)
-            // })
     }
     render(){
         const {points, receiver, comment} = this.state
@@ -111,36 +80,86 @@ class CreateTransaction extends Component{
                                     <h1 >Tạo giao dịch</h1>
                                 </div>
                                 <div className="verticalSpaceMain">
-                                    <label>Điểm</label>
-                                    <input 
-                                        type="number"
-                                        name="points"
-                                        value={points}
-                                        onChange={this.onChange}
-                                        className="inputMain inputBorderMain"/>
+                                    <Grid divided="vertically">
+                                        <Grid.Row columns={2}>
+                                            <Grid.Column width={4}>
+                                                <label>Điểm</label>
+                                            </Grid.Column>
+                                            <Grid.Column width={12}>
+                                            <input 
+                                                type="number"
+                                                name="points"
+                                                value={points}
+                                                onChange={this.onChange}
+                                                className="inputMain inputBorderCreateTransaction"/>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                    
+                                    
                                 </div>
                                 
                                 <div className="verticalSpaceMain">
-                                    <label>Người nhận</label>
-                                    <input 
-                                        type="text"
-                                        name="receiver"
-                                        value={receiver}
-                                        onChange={this.onChange}
-                                        className="inputMain inputBorderMain"/>
+                                    <Grid divided="vertically">
+                                        <Grid.Row columns={2}>
+                                            <Grid.Column width={4}>
+                                            <label>Người nhận</label>
+                                            </Grid.Column>
+                                            <Grid.Column width={12}>
+                                                <input 
+                                                    type="text"
+                                                    name="receiver"
+                                                    value={receiver}
+                                                    onChange={this.onChange}
+                                                    className="inputMain inputBorderCreateTransaction"/>
+                                                <div className="spaceErrors">
+                                                    { this.state.errorMessage && <span className="errors"> Tài khoản người nhận không đúng </span> }
+                                                </div>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                   
+                                    
+
+                                        
                                 </div>
                                 <div className="verticalSpaceMain">
-                                    <label>Tin nhắn</label>
-                                    <textarea 
-                                        name="comment"
-                                        value={comment}
-                                        onChange={this.onChange}
-                                        className="input inputBorderMain textAreaMain" 
-                                    />
+                                <Grid divided="vertically">
+                                        <Grid.Row columns={2}>
+                                            <Grid.Column width={4}>
+                                                <label>Thỏa thuận giao dịch</label>
+                                            </Grid.Column>
+                                            <Grid.Column width={12}>
+                                                <textarea 
+                                                    name="comment"
+                                                    value={comment}
+                                                    onChange={this.onChange}
+                                                    className="inputMain inputBorderCreateTransaction textAreaMain" 
+                                                />     
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                    
+                                    
+                                </div>
+                                <div className="verticalSpaceMain">
+                                <Grid divided="vertically">
+                                        <Grid.Row columns={2}>
+                                            <Grid.Column width={4}>
+                                                <label>Lưu ý</label>
+                                            </Grid.Column>
+                                            <Grid.Column width={12}>
+                                            <p className="inputMain">Yêu cầu điền đầy đủ và chính xác những thỏa thuận mua bán của 2 bên đã giao kèo, thương lượng. Đây sẽ là căn cứ để giải quyết tranh chấp nếu có</p>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                    
+                                    
+                                    
                                 </div>
                                 
-                                <div className="btnTest">
-                                    <button type="submit" className="btnMain">Gửi</button>
+                                <div className="btnWidth">
+                                    <button type="submit" className="btnMain btnCreateTransaction">Gửi</button>
                                 </div>
                             </form>
                         </div>

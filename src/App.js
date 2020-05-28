@@ -5,15 +5,27 @@ import LoginRegister from './Screens/LoginRegister';
 import Login from './Screens/LoginRegister/Login';
 import Register from './Screens/LoginRegister/Register';
 import AboutUs from './Screens/AboutUs';
-import AccountInformation from './Screens/Account/AccountInformation';
 import Terms from './Screens/Terms';
-import AccountConfirmation from './Screens/Account/AccountConfirmation';
-import PointManagement from './Screens/Account/PointManagement';
-import history from './Routes/history';
-import AuthenticatedComponent from './Screens/AuthenticatedComponent';
+
 import AddPoint from './Screens/Requests/AddPoint';
 import CreateTransaction from './Screens/Requests/CreateTransaction';
 import TakeMoneyOut from './Screens/Requests/TakeMoneyOut';
+
+import AccountInformation from './Screens/Account/AccountInformation';
+import AccountConfirmation from './Screens/Account/AccountConfirmation';
+import PointManagement from './Screens/Account/PointManagement';
+
+import BasicInformation from './Screens/Account/AccountInformation/BasicInformation';
+import Buy from './Screens/Account/AccountInformation/Buy';
+import Sale from './Screens/Account/AccountInformation/Sale';
+import HistoryPoint from './Screens/Account/AccountInformation/HistoryPoint';
+
+
+import history from './Routes/history';
+import AuthenticatedComponent from './Screens/AuthenticatedComponent';
+
+
+
 
 
 
@@ -30,6 +42,10 @@ export default class App extends Component {
               <Route path="/terms" exact component={Terms}/>
               <AuthenticatedComponent>
                 <Route path="/account" exact component={AccountInformation}/>
+                <Route path="/account/basicInfor" exact component={BasicInformation}/>
+                <Route path="/account/buy" exact component={Buy}/>
+                <Route path="/account/sale" exact component={Sale}/>
+                <Route path="/account/historyPoint" exact component={HistoryPoint}/>
                 <Route path="/accountconfirmation" exact component={AccountConfirmation}/>
                 <Route path="/pointmanagement" exact component={PointManagement}/>
                 <Route path="/addpoint" exact component={AddPoint}/>
