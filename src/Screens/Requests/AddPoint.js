@@ -55,7 +55,7 @@ class AddPoint extends Component{
                 {
                     amount: amount,
                     message: message,
-                    image : data
+                    image : btoa(data)
                 }
             )
             .then(response => { 
