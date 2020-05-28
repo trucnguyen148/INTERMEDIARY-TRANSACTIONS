@@ -47,14 +47,6 @@ class AddPoint extends Component{
         data.append('file', this.state.selectedFile);
 
         const validInput = amount !== "" && selectedFile !== null;
-        // const dataPost = {
-        //     amount: amount,
-        //     message: message,
-        //     image: btoa(data)
-        // }
-        // const axiosConfig = {
-        //     headers: header
-        //   };
         if(validInput){
             axios.post(url, {
                 amount: amount,
