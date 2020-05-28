@@ -4,5 +4,5 @@ const jwt = getJwt;
 
 export const header = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${jwt(), { session: false }}`
+    Authorization: `Bearer ${jwt()}`
 }
