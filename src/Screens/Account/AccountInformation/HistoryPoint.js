@@ -1,58 +1,62 @@
 import React, {Component} from 'react';
 import { Grid  } from 'semantic-ui-react';
+import axios from 'axios';
+import { sessionURL } from '../../../Routes/sessionURL';
+import { header } from '../../../Routes/headers';
 
 
 class HistoryPoint extends Component{
     constructor(props){
         super(props);
         this.state = {
-            transaction: [
-                {
-                    date: '20/12/2019',
-                    amount: '2.000.000',
-                    bank: "Techcombank",
-                    bankAccount: "080xxxxxxx",
-                    img: "",
-                    status: 'waiting'
-                },
-                {
-                    date: '20/12/2019',
-                    amount: '2.000.000',
-                    bank: "Techcombank",
-                    bankAccount: "080xxxxxxx",
-                    img: "",
-                    status: 'waiting'
-                },
-                {
-                    date: '20/12/2019',
-                    amount: '2.000.000',
-                    bank: "Techcombank",
-                    bankAccount: "080xxxxxxx",
-                    img: "",
-                    status: 'waiting'
-                },
-                {
-                    date: '20/12/2019',
-                    amount: '2.000.000',
-                    bank: "Techcombank",
-                    bankAccount: "080xxxxxxx",
-                    img: "",
-                    status: 'waiting'
-                }, 
-                {
-                    date: '20/12/2019',
-                    amount: '2.000.000',
-                    bank: "Techcombank",
-                    bankAccount: "080xxxxxxx",
-                    img: "",
-                    status: 'waiting'
-                }
-            ]
+            loading: true,
+            error: "",
+            transaction: []
         }
     }
 
+    loadData = () => {
+        this.setState({loading: true});
+        const url = sessionURL + "points"
+        return axios 
+            .get(url, {
+                headers: header
+            })
+            .then(result => {
+                console.log(result);
+                this.setState({
+                    transaction: result.data.data,
+                    loading: false,
+                    error: false
+                });
+            })
+            .catch(error => {
+                console.log("error: " , error);
+                this.setState({
+                    error: `${error}`,
+                    loading: false
+                });
+            })
+    }
+
+    componentDidMount(){
+        this.loadData();
+    }
 
     render(){
+        const { loading, error, transaction } = this.state;
+        if (loading) {
+        return <p>Loading ...</p>;
+        }
+        if (error) {
+        return (
+            <p>
+            There was an error loading the repos.{" "}
+            <button onClick={this.loadData}>Try again for Deals</button>
+            <button onClick={this.loadCompany}>Try again for customerExperiences</button>
+            </p>
+        );
+        }
 
         return(
             <div>
@@ -89,7 +93,7 @@ class HistoryPoint extends Component{
                         {this.state.transaction.map((transaction, index) =>
                             <>
                             <Grid.Column width={2}>
-                                <p className="lineCenter">{transaction.date}</p>
+                                {/* <p className="lineCenter">{transaction.date}</p> */}
                             </Grid.Column>
                             <Grid.Column width={2}>
                                 <p className="lineCenter">{transaction.amount}</p>
@@ -101,7 +105,7 @@ class HistoryPoint extends Component{
                                 <p>{transaction.bankAccount}</p>
                             </Grid.Column>
                             <Grid.Column width={3}>
-                                <p>{transaction.img}</p>
+                                <p>{transaction.image_url}</p>
                             </Grid.Column>
                             <Grid.Column width={3}>
                                 <p>{transaction.status}</p>

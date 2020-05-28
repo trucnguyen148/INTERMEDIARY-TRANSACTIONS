@@ -2,53 +2,51 @@ import React, {Component} from 'react';
 import { Grid, Button, Modal  } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { sessionURL } from '../../../Routes/sessionURL';
+import axios from 'axios';
+import { header } from '../../../Routes/headers';
 
 class Buy extends Component{
     constructor(props){
         super(props);
         this.state = {
             open: false,
-            transaction: [
-                {
-                    id: '1',
-                    date: '20/12/2019',
-                    point: '20',
-                    comment: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                    status: 'waiting'
-                },
-                {
-                    id: '2',
-                    date: '20/12/2019',
-                    point: '20',
-                    comment: 'simply dummy text of the printing and typesetting industry',
-                    status: 'waiting'
-                },
-                {
-                    id: '3',
-                    date: '20/12/2019',
-                    point: '20',
-                    comment: 'simply dummy text of the printing and typesetting industry',
-                    status: 'waiting'
-                },
-                {
-                    id: '3',
-                    date: '20/12/2019',
-                    point: '20',
-                    comment: 'simply dummy text of the printing and typesetting industry',
-                    status: 'waiting'
-                }, {
-                    id: '3',
-                    date: '20/12/2019',
-                    point: '20',
-                    comment: 'simply dummy text of the printing and typesetting industry',
-                    status: 'waiting'
-                }
-            ]
+            loading: true,
+            error: "",
+            transaction: []
         }
     }
 
     show = (dimmer) => () => this.setState({ dimmer, open: true })
     close = () => this.setState({ open: false })
+
+    loadData = () => {
+        this.setState({loading: true});
+        const url = sessionURL + "deals"
+        return  axios
+        .get(url, {
+            headers: header
+        })
+        .then(result => {
+            console.log(result);
+            this.setState({
+                transaction: result.data.data,
+                loading: false,
+                error: false
+            });
+        })
+        .catch(error => {
+            console.error("error: ", error);
+            this.setState({
+                error: `${error}`,
+                loading: false
+            });
+        });
+    };
+
+    componentDidMount(){
+        this.loadData();
+    }
     
     render(){
         const { open, dimmer } = this.state;
@@ -91,7 +89,7 @@ class Buy extends Component{
                                 <p className="lineCenter">{transaction.date}</p>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <p>{transaction.point}</p>
+                                <p>{transaction.points}</p>
                             </Grid.Column>
                             <Grid.Column width={5}>
                                 <p>{transaction.comment}</p>

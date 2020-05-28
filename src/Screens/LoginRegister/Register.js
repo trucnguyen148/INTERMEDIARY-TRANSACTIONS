@@ -87,9 +87,9 @@ class Register extends Component{
         if(validInput){
             if(validSubmit) {
                 axios.post(url, {
-                username: this.state.username,
-                password: btoa(this.state.password),
-                email: this.state.email
+                    username: this.state.username,
+                    password: btoa(this.state.password),
+                    email: this.state.email
                 })
                 .then(res => {
                     alert("Bạn đã đăng ký thành công")
