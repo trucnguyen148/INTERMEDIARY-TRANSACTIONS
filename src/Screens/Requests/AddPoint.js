@@ -24,7 +24,7 @@ class AddPoint extends Component{
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeFile = this.onChangeFile.bind(this);
-        this.getBase64 = this.getBase64.bind(this);
+        // this.getBase64 = this.getBase64.bind(this);
     }
     
     onChangeFile(e){
@@ -52,16 +52,16 @@ class AddPoint extends Component{
         })
     };
 
-    getBase64(file, cb) {
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-            cb(reader.result)
-        };
-        reader.onerror = function (error) {
-            console.log('Error: ', error);
-        };
-    }
+    // getBase64(file, cb) {
+    //     let reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = function () {
+    //         cb(reader.result)
+    //     };
+    //     reader.onerror = function (error) {
+    //         console.log('Error: ', error);
+    //     };
+    // }
 
     onSubmit(e){
         e.preventDefault();
