@@ -13,7 +13,15 @@ class Sale extends Component{
             open: false,
             loading: true,
             error: "",
-            transaction: [],
+            transaction: [
+                {
+                    id: "",
+                    partner_name: "",
+                    points: "",
+                    comment: "",
+                    status: ""
+                }
+            ],
             action: ""
         }
         this.handleAccept = this.handleAccept.bind(this);
@@ -28,12 +36,13 @@ class Sale extends Component{
             headers: header
         })
         .then(result => {
-            console.log(result);
+            
             this.setState({
                 transaction: result.data.data,
                 loading: false,
                 error: false
             });
+            // console.log(this.state.transaction[0].id);
         })
         .catch(error => {
             console.error("error: ", error);
@@ -44,8 +53,17 @@ class Sale extends Component{
         });
     };
 
-    handleCancel(){
-        const url = sessionURL + "deals"
+    
+
+    componentDidMount(){
+        this.loadData();
+    }
+
+    handleCancel(e){
+        const url = sessionURL + "deals";
+        const id = this.state.transaction;
+        
+        console.log(id)
         axios.put(url, 
             {
                 deal_id: this.state.transaction.id,
@@ -94,10 +112,6 @@ class Sale extends Component{
         this.setState({ open: false })
     }
 
-    componentDidMount(){
-        this.loadData();
-    }
-
     show = (dimmer) => () => this.setState({ dimmer, open: true })
     close = () => this.setState({ open: false })
 
@@ -131,10 +145,11 @@ class Sale extends Component{
                 
              
                 {/* Content */}
+                
                 <Grid divided="vertically">
-                {this.state.transaction.map((transaction) =>
+                {this.state.transaction.map((transaction, index) =>
                     <>
-                    <Grid.Row columns={6} key={transaction.id}>
+                    <Grid.Row columns={6} key={index}>
                     <Grid.Column width={2}>
                         <p className="lineCenter">{transaction.created_at}</p>
                     </Grid.Column>
@@ -148,8 +163,10 @@ class Sale extends Component{
                         <p>{transaction.comment}</p>
                     </Grid.Column>
                     <Grid.Column width={3}>
-                        <p>{transaction.status}</p>
+                        <p>{transaction.status} </p>
                     </Grid.Column>
+                    
+                    {/* {console.log(this.state.transaction[index].id)} */}
                     <Grid.Column width={1}>
                         <button onClick={this.show('blurring')}>
                         <FontAwesomeIcon icon={faEllipsisV}/>
@@ -157,10 +174,10 @@ class Sale extends Component{
                         <Modal dimmer={dimmer} open={open} onClose={this.close}>
                             <Modal.Header>Bạn xác nhận kết thúc giao dịch và đồng ý chuyển điểm cho bên đối tác chứ?</Modal.Header>
                             <Modal.Actions>
-                                <Button color='red' onClick={this.handleCancel}>
+                                <Button color='red' onClick={this.handleCancel} type="submit">
                                 Hủy bỏ
                                 </Button>
-                                <Button color='black' onClick={this.handleAccept}>
+                                <Button color='black' onClick={this.handleAccept} type="submit">
                                 Đồng ý
                                 </Button>
                             </Modal.Actions>

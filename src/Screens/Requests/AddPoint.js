@@ -18,59 +18,87 @@ class AddPoint extends Component{
             amount: "",
             message: "",
             errorMessage: "",
-            selectedFile: null
+            file: null,
+            fileBase64: ""
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeFile = this.onChangeFile.bind(this);
+        this.getBase64 = this.getBase64.bind(this);
     }
     
     onChangeFile(e){
-        this.setState({
-            selectedFile: e.target.files[0],
-            loaded: 0,
-        })
+        e.preventDefault();
+        // this.setState({
+        //     file: e.target.files[0],
+        //     loaded: 0,
+        // })
+
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          this.setState({
+            file: file,
+            fileBase64: reader.result
+          });          
+        };
     }
  
     onChange(e){
+        e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value,
         })
+    };
+
+    getBase64(file, cb) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            cb(reader.result)
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
     }
 
     onSubmit(e){
         e.preventDefault();
         
         const url = sessionURL + "points";
-        const {amount, message, selectedFile} = this.state;
-        const data = new FormData();
-        data.append('file', selectedFile);
+        const {amount, message, file, fileBase64} = this.state;
+        const validInput = amount !== "" && file !== null;
 
-        const validInput = amount !== "" && selectedFile !== null;
-        if(validInput){
-            axios.post(url, 
-                {
-                    headers: header
-                },
-                {
-                    amount: amount,
-                    message: message,
-                    image : btoa(data)
-                }
-            )
-            .then(response => { 
-                alert("sucess");
-                console.log(response)
-            })
-            .catch(err => {
-                alert("fail");
-                console.log(err.response)
-            });
-        } else{
-            this.setState({
-                errorMessage: "nhap"
-            })
-        }
+        console.log(amount);
+        console.log(message);
+        console.log(fileBase64);
+
+        // if(validInput){
+        //     axios.post(url, 
+        //         {
+        //             amount: amount,
+        //             message: message,
+        //             image :  fileBase64
+        //         },
+        //         {
+        //             headers: header
+        //         }
+                
+        //     )
+        //     .then(response => { 
+        //         alert("sucess");
+        //         console.log(response)
+        //     })
+        //     .catch(err => {
+        //         alert("fail");
+        //         console.log(err.response)
+        //     });
+        // } else{
+        //     this.setState({
+        //         errorMessage: "nhap"
+        //     })
+        // }
     }
     
     render(){
