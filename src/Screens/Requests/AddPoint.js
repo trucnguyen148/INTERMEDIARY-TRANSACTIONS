@@ -74,31 +74,31 @@ class AddPoint extends Component{
         console.log(message);
         console.log(fileBase64);
 
-        // if(validInput){
-        //     axios.post(url, 
-        //         {
-        //             amount: amount,
-        //             message: message,
-        //             image :  fileBase64
-        //         },
-        //         {
-        //             headers: header
-        //         }
+        if(validInput){
+            axios.post(url, 
+                {
+                    amount: amount,
+                    message: message,
+                    image :  fileBase64
+                },
+                {
+                    headers: header
+                }
                 
-        //     )
-        //     .then(response => { 
-        //         alert("sucess");
-        //         console.log(response)
-        //     })
-        //     .catch(err => {
-        //         alert("fail");
-        //         console.log(err.response)
-        //     });
-        // } else{
-        //     this.setState({
-        //         errorMessage: "nhap"
-        //     })
-        // }
+            )
+            .then(response => { 
+                alert("sucess");
+                console.log(response)
+            })
+            .catch(err => {
+                alert("fail");
+                console.log(err.response)
+            });
+        } else{
+            this.setState({
+                errorMessage: "nhap"
+            })
+        }
     }
     
     render(){
