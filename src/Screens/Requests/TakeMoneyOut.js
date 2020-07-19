@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import { Grid } from 'semantic-ui-react';
 
+import Axios from 'axios';
+
+import { sessionURL } from '../../Routes/sessionURL';
+import { header } from '../../Routes/headers';
+
 import takeMoney from './../../assets/TakeMoney.png';
 
 import "./../../styles/Main.scss";
@@ -36,7 +41,8 @@ class TakeMoneyOut extends Component{
                     bank: "Techcombank",
                     branch: "Ho Chi Minh"
                 }
-            ]
+            ],
+            errorMessage: ""
         }
 
         this.onChange = this.onChange.bind(this);
@@ -59,6 +65,31 @@ class TakeMoneyOut extends Component{
     onSubmit(e){
         e.preventDefault();
         console.log(e.target.value);
+        const {amount} = this.state;
+        
+        const validInput = amount !== ""
+
+        const url = sessionURL + "withdraw-request";
+
+        if(validInput){
+            return Axios
+            .post(url, {
+                amount: amount
+            },{
+                headers: header
+            })
+            .then(response => { 
+                alert("sucess");
+                console.log(response)
+            })
+            .catch(err => {
+                // this.setState({errorMessage: err.message
+                // });
+                console.log(err.response)
+            });
+        } else {
+            this.setState({errorMessage: "Bạn cần điền số điểm muốn rút và chọn tài khoản ngân hàng"})
+        }
     }
 
     render(){
@@ -100,6 +131,7 @@ class TakeMoneyOut extends Component{
                                                     className="inputMain inputBorderAddPoint"/>
                                            </Grid.Column>
                                        </Grid.Row>
+                                      
                                    </Grid>
                                </div>
                                <div className="verticalSpaceMain">
@@ -148,8 +180,11 @@ class TakeMoneyOut extends Component{
                                         </Grid>
                                     </div>
                                </div>
-                               <div className="btnWidth">
-                                    <button type="submit" className="btnMain btnAddPoint">xác nhận</button>
+                               <div className="spaceErrors">
+                                    <span className="errors"> {this.state.errorMessage} </span>
+                                </div>
+                                <div className="btnWidth">
+                                    <button type="submit" className="btnMain btnAddPoint">Xác nhận</button>
                                 </div>
                            </form>
                        </div>

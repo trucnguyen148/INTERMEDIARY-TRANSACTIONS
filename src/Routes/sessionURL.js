@@ -1,1 +1,1 @@
-export const sessionURL = "http://meoo164.tk:8085/gdtg-public/"
+export const sessionURL = "http://171.244.18.14:8085/gdtg-public/"

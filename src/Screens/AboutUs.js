@@ -13,21 +13,21 @@ class AboutUs extends Component{
                 <Grid divided="vertically">
                     <Grid.Row columns={2}>
                         <Grid.Column width={7}>
-                            <div className="sameRow marginLeft" style={{marginTop: '10rem'}}>
+                            <div className="sameRow marginLeft textAboutUs" style={{marginTop: '20rem'}}>
                                 <FontAwesomeIcon icon={faUser} size="lg" className="iconSpace"/>
-                                <p>LÊ TRỌNG NGHĨA</p>
+                                <p>LÊ TRỌNG  NGHĨA</p>
                             </div>
-                            <div className="sameRow marginLeft"> 
+                            <div className="sameRow marginLeft textAboutUs"> 
                                 <FontAwesomeIcon icon={faPhone} size="lg" className="iconSpace"/>
                                 <p>096 165 1094</p>
                             </div>
-                            <div className="sameRow marginLeft">
+                            <div className="sameRow marginLeft textAboutUs">
                                 <FontAwesomeIcon icon={faFacebook} size="lg" className="iconSpace"/>
                                 <p>
                                     xxxx
                                 </p>
                             </div>
-                            <div className="sameRow marginLeft">
+                            <div className="sameRow marginLeft textAboutUs">
                                 <FontAwesomeIcon icon={faEnvelope} size="lg" className="iconSpace"/>
                                 <p>justpassion68@gmail.com</p>
                             </div>

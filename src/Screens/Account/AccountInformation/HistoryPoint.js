@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Grid  } from 'semantic-ui-react';
+import { Grid, Pagination, Modal  } from 'semantic-ui-react';
 import axios from 'axios';
 import { sessionURL } from '../../../Routes/sessionURL';
 import { header } from '../../../Routes/headers';
@@ -11,8 +11,10 @@ class HistoryPoint extends Component{
         this.state = {
             loading: true,
             error: "",
-            transaction: []
+            transactions: [],
+            page: 1
         }
+        this.setPageNum = this.setPageNum.bind(this);
     }
 
     loadData = () => {
@@ -25,7 +27,7 @@ class HistoryPoint extends Component{
             .then(result => {
                 console.log(result);
                 this.setState({
-                    transaction: result.data.data,
+                    transactions: result.data.data,
                     loading: false,
                     error: false
                 });
@@ -42,21 +44,20 @@ class HistoryPoint extends Component{
     componentDidMount(){
         this.loadData();
     }
+    
+    setPageNum(event, { activePage }){
+        this.setState({ page: activePage });
+    };
 
     render(){
-        const { loading, error, transaction } = this.state;
-        if (loading) {
-        return <p>Loading ...</p>;
-        }
-        if (error) {
-        return (
-            <p>
-            There was an error loading the repos.{" "}
-            <button onClick={this.loadData}>Try again for Deals</button>
-            <button onClick={this.loadCompany}>Try again for customerExperiences</button>
-            </p>
+        const { transactions, page } = this.state;
+        const itemsPerPage = 10;
+        const totalPages = transactions.length / itemsPerPage ;
+        const items = transactions.slice(
+            (page - 1) * itemsPerPage,
+            (page - 1) * itemsPerPage + itemsPerPage
         );
-        }
+        
 
         return(
             <div>
@@ -64,19 +65,14 @@ class HistoryPoint extends Component{
                 <div className="titleDetailAccount">
                 <Grid divided="vertically">
                     <Grid.Row columns={6}>
-                        <Grid.Column width={2}>
+                        <Grid.Column width={3}>
                             <h4>Ngày</h4>
                         </Grid.Column>
-                        <Grid.Column width={2}>
+                        <Grid.Column width={4}>
                             <h5>Số tiền</h5>
                         </Grid.Column>
-                        <Grid.Column width={3}>
-                            <h5>Ngân hàng</h5>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <h5>Số tài khoản</h5>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
+                        
+                        <Grid.Column width={6}>
                             <h5>Hình ảnh</h5>
                         </Grid.Column>
                         <Grid.Column width={3}>
@@ -89,34 +85,41 @@ class HistoryPoint extends Component{
              
                 {/* Content */}
                 <Grid divided="vertically">
-                    <Grid.Row columns={6} >
-                        {this.state.transaction.map((transaction, index) =>
+                    
+                        {items.sort((a, b) => (b.created_at - a.created_at)).map((transaction, index) =>
                             <>
-                            <Grid.Column width={2}>
-                                {/* <p className="lineCenter">{transaction.date}</p> */}
-                            </Grid.Column>
-                            <Grid.Column width={2}>
-                                <p className="lineCenter">{transaction.amount}</p>
-                            </Grid.Column>
-                            <Grid.Column width={3}>
-                                <p>{transaction.bank}</p>
-                            </Grid.Column>
-                            <Grid.Column width={3}>
-                                <p>{transaction.bankAccount}</p>
-                            </Grid.Column>
-                            <Grid.Column width={3}>
-                                <p>{transaction.image_url}</p>
-                            </Grid.Column>
-                            <Grid.Column width={3}>
-                                <p>{transaction.status}</p>
+                            <Grid.Row columns={6} key={transaction.id} style={{display: 'flex', alignItems: 'center'}}>
+                                <Grid.Column width={3}>
+                                    <p className="lineCenter">{transaction.created_at}</p>
+                                </Grid.Column>
+                                <Grid.Column width={4}>
+                                    <p className="lineCenter">{transaction.amount}</p>
+                                </Grid.Column>
                                 
-                            </Grid.Column>
-                            <hr className="divider dividerBottom"/>
+                                <Grid.Column width={6}>
+                                    <Modal trigger={<img src={transaction.image_url} alt=""/>}>
+                                        <Modal.Content >
+                                            <img src={transaction.image_url} alt=""/>
+                                        </Modal.Content>
+                                    </Modal>
+                                    
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    <p>{transaction.status}</p>
+                                    
+                                </Grid.Column>
+                            </Grid.Row>
                             </>
                         )}
                         
-                    </Grid.Row>
+                    
                 </Grid>
+                <Pagination
+                    activePage={page}
+                    totalPages={totalPages}
+                    siblingRange={1}
+                    onPageChange={this.setPageNum}
+                />
             </div>
         )
     }

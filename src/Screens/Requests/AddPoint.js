@@ -16,24 +16,19 @@ class AddPoint extends Component{
         super(props);
         this.state = {
             amount: "",
-            message: "",
-            errorMessage: "",
             file: null,
-            fileBase64: ""
+            fileBase64: "",
+            errorMessage: ""
+            
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeFile = this.onChangeFile.bind(this);
-        // this.getBase64 = this.getBase64.bind(this);
     }
     
     onChangeFile(e){
         e.preventDefault();
-        // this.setState({
-        //     file: e.target.files[0],
-        //     loaded: 0,
-        // })
-
+        
         let file = e.target.files[0];
         let reader = new FileReader();
         reader.readAsDataURL(file);
@@ -43,6 +38,14 @@ class AddPoint extends Component{
             fileBase64: reader.result
           });          
         };
+
+        const validInput = this.state.file !== null ;
+
+        if(validInput){
+            this.setState({
+                errorMessage: ""
+            })
+        };
     }
  
     onChange(e){
@@ -50,59 +53,54 @@ class AddPoint extends Component{
         this.setState({
             [e.target.name]: e.target.value,
         })
-    };
 
-    // getBase64(file, cb) {
-    //     let reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onload = function () {
-    //         cb(reader.result)
-    //     };
-    //     reader.onerror = function (error) {
-    //         console.log('Error: ', error);
-    //     };
-    // }
+        const validInput = this.state.amount !== null ;
+
+        if(validInput){
+            this.setState({
+                errorMessage: ""
+            })
+        }
+        
+    };
 
     onSubmit(e){
         e.preventDefault();
         
         const url = sessionURL + "points";
-        const {amount, message, file, fileBase64} = this.state;
-        const validInput = amount !== "" && file !== null;
+        const {amount, file, fileBase64} = this.state;
+        const validInput = amount !== "" && file !== "";
 
         console.log(amount);
-        console.log(message);
         console.log(fileBase64);
 
         if(validInput){
             axios.post(url, 
                 {
                     amount: amount,
-                    message: message,
-                    image :  fileBase64
+                    image :  fileBase64.replace("data:image/jpeg;base64,", "")
                 },
                 {
                     headers: header
                 }
-                
             )
             .then(response => { 
-                alert("sucess");
+                alert("Bạn đã gửi yêu cầu nạp điểm thành công");
                 console.log(response)
             })
             .catch(err => {
-                alert("fail");
+                alert("Yêu cầu nạp điểm thất bại. Vui lòng kiểm tra lại các thông tin");
                 console.log(err.response)
             });
         } else{
             this.setState({
-                errorMessage: "nhap"
+                errorMessage: "Bạn vui lòng điền đầy đủ các thông tin"
             })
         }
     }
     
     render(){
-        const {amount, message, errorMessage } = this.state;
+        const {amount, errorMessage } = this.state;
 
         return(
             <Grid divided="vertically">
@@ -136,12 +134,6 @@ class AddPoint extends Component{
                                                     value={amount}
                                                     onChange={this.onChange}
                                                     className="inputMain inputBorderAddPoint"/>
-                                                <input 
-                                                type="text"
-                                                name="message"
-                                                value={message}
-                                                onChange={this.onChange}
-                                                className="inputMain inputBorderAddPoint"/>
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
@@ -207,14 +199,11 @@ class AddPoint extends Component{
                                             <Grid.Column width={12}>
                                                 <label htmlFor="image"><FontAwesomeIcon icon={faPaperclip}/></label>
                                                 <input 
-                                                    // name="photo"
-                                                    // value={photo}
-                                                    // // ref={this.fileInput}
-                                                    // // style={{display:"none"}}
+                                                   
                                                     className="inputMain" 
-                                                    // type="file"
-                                                    // accept=".jpg, .jpeg, .png"
-                                                    // onChange={this.onChange}
+                                                    
+                                                    accept=".jpg, .jpeg, .png"
+                                                    
                                                     type="file" 
                                                     name="file" 
                                                     onChange={this.onChangeFile}

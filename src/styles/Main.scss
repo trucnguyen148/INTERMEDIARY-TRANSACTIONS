@@ -27,9 +27,9 @@
     color: $subColor;
 }
 
-.spaceLine{
-    margin-bottom: 4rem;
-}
+// .spaceLine{
+//     margin-bottom: 1rem;
+// }
 
 .inputMain{
     width: 85%;
@@ -122,6 +122,7 @@
 .borderAccount{
     border: 2px solid $mainColor;
     padding: 1rem;
+    background-color: transparent;
 }
 
 .selected {
@@ -147,4 +148,18 @@
 .iconSpace{
     margin-right: 2rem;
     margin-bottom: 2rem;
+}
+
+.textAboutUs{
+    font-size: 17pt;
+}
+
+.IconBtn{
+    background-color: transparent;
+    border: transparent;
+}
+
+.ellipIcon{
+    color: $mainColor;
+    background-color: transparent;
 }

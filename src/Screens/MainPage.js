@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-
 import { Router, NavLink} from "react-router-dom";
+import { Dropdown, Icon } from 'semantic-ui-react';
+
+import history from './../Routes/history';
 
 import 'semantic-ui-css/semantic.min.css';
 import './../styles/navbar.scss';
 
-import { Dropdown, Icon } from 'semantic-ui-react';
-import history from './../Routes/history';
-
 class MainPage extends Component {
   constructor(props){
     super(props);
-    
     this.onLogOut = this.onLogOut.bind(this);
-
   }
 
   onLogOut(){
@@ -21,9 +18,7 @@ class MainPage extends Component {
     window.location = "/terms"      
   }
 
-
   render(){
-
     return (
       <Router history={history}>
         <nav className="container navbar ">
@@ -58,58 +53,66 @@ class MainPage extends Component {
             </li>
             <li className="navAccount">
               <div className="accountIcon">
-                
                 {localStorage.getItem("jwt") === null
                 ? <button style={{
-                  width: '100%', 
+                  width: '100%',
+                  height: '100%', 
                   color: 'white',
-                  backgroundColor: 'black'
+                  backgroundColor: 'black',
+                  paddingTop: '0.7rem',
+                  paddingBottom: '0.7rem',
+                  paddingLeft: '0.5rem'
                   
-                }} onClick={()=> history.push("/login")}><Icon name="user"/></button>
+                  }} onClick={()=> history.push("/login")}><Icon style={{float: 'left'}} name="user"/></button>
                 : <Dropdown 
-                icon='user'
-                floating
-                labeled
-                button
-                fluid
-                className='icon'
-                style={{
-                  width: '100%', 
-                  color: 'white',
-                  backgroundColor: 'black'
-                }}
-              > 
-                <Dropdown.Menu style={{backgroundColor: '#000000'}} >
-                  <Dropdown.Item className="spaceLine">
-                    <NavLink 
-                        className="colorListAccount"
-                        activeClassName='activeLink' 
-                        to="/account"
-                      >
-                        Thông tin cá nhân
-                      </NavLink> 
-                  </Dropdown.Item>
-                  <Dropdown.Item className="spaceLine">
-                    <NavLink 
-                      className="colorListAccount"
-                      activeClassName='activeLink' 
-                      to="/accountconfirmation"
-                    >
-                      Xác nhận tài khoản
-                    </NavLink> 
-                  </Dropdown.Item>
-                  <Dropdown.Item className="spaceLine">
-                    <NavLink 
-                      className="colorListAccount"
-                      activeClassName='activeLink' 
-                      to="/pointmanagement"
-                    >
-                      Quản lí điểm
-                    </NavLink> 
-                  </Dropdown.Item>
-                  <Dropdown.Item><button onClick={this.onLogOut}>Log out</button></Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                    icon='user'
+                    floating
+                    labeled
+                    button
+                    fluid
+                    className='icon'
+                    style={{
+                      width: '100%', 
+                      color: 'white',
+                      backgroundColor: 'black',
+                      
+                      
+                    }}
+                  > 
+                    <Dropdown.Menu style={{backgroundColor: '#000000'}}>
+                      <Dropdown.Item className="spaceLine">
+                        <NavLink 
+                          className="colorListAccount"
+                          activeClassName='activeLinkAccount' 
+                          to="/account"
+                        >
+                          Thông tin cá nhân
+                        </NavLink> 
+                      </Dropdown.Item>
+                      <hr/>
+                      <Dropdown.Item className="spaceLine">
+                        <NavLink 
+                          className="colorListAccount"
+                          activeClassName='activeLinkAccount' 
+                          to="/accountconfirmation"
+                        >
+                          Xác nhận tài khoản
+                        </NavLink> 
+                      </Dropdown.Item>
+                      <hr/>
+                      <Dropdown.Item className="spaceLine">
+                        <NavLink 
+                          className="colorListAccount"
+                          activeClassName='activeLinkAccount' 
+                          to="/pointmanagement"
+                        >
+                          Quản lí điểm
+                        </NavLink> 
+                      </Dropdown.Item>
+                      <hr/>
+                      <Dropdown.Item><button className="logOutBtn" onClick={this.onLogOut}>Thoát</button></Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 }
                 
               </div>

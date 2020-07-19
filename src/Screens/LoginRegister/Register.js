@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import { Grid } from 'semantic-ui-react';
+import { Grid, Checkbox } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,7 @@ import axios from 'axios';
 import history from './../../Routes/history';
 
 import { sessionURL } from '../../Routes/sessionURL';
-import './Register.scss';
+// import './Register.scss';
 import { validEmailRegex } from '../../helpers/validEmailRegex';
 import { validPassword } from '../../helpers/validPassword';
 
@@ -25,20 +25,25 @@ class Register extends Component{
             errors: {
                 username: "",
                 password: "",
-                email: ""
+                email: "",
+                checked: ""
             },
             errorMessage: "",
-            isCheck: false
+            checked: false
+            
         };
+        
+
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
+    toggle = () => this.setState((prevState) => ({ checked: !prevState.checked }))
 
     onChange(e){
         e.preventDefault();
         const { name, value } = e.target;
-        const {username, email, password} = this.state;
-        const validInput = username !== "" && email !== "" && password !== "";
+        const {username, email, password, checked} = this.state;
+        const validInput = username !== "" && email !== "" && password !== "" && checked !== false;
 
         if(validInput){
             this.setState({
@@ -68,6 +73,12 @@ class Register extends Component{
                     ? ''
                     : 'Tài khoản email không đúng';
                 break;
+            case 'checked': 
+                errors.checked = 
+                    value.checked === false
+                    ? 'Bạn cần chấp nhận các điều khoản'
+                    : '';
+                break;
             default:
                 break;
         }
@@ -79,8 +90,8 @@ class Register extends Component{
     onSubmit(e){
         e.preventDefault();
         const url = sessionURL + "sign-up";
-        const {username, email, password, errors} = this.state;
-        const validInput = username !== "" && email !== "" && password !== "";
+        const {username, email, password, errors, checked} = this.state;
+        const validInput = username !== "" && email !== "" && password !== "" && checked !== false;
         const validSubmit = errors.username === "" && errors.email === "" && errors.password === ""
 
 
@@ -116,14 +127,14 @@ class Register extends Component{
             
         } else{
             this.setState({
-                errorMessage: "Bạn cần nhập đầy đủ thông tin để đăng ký"
+                errorMessage: "Bạn cần nhập đầy đủ thông tin và chấp nhận các điều khoản để đăng ký"
             })
         }
     }
 
 
     render(){
-        const { username, email, password, isCheck } = this.state
+        const { username, email, password } = this.state
         const {errors} = this.state;
 
         return(
@@ -188,12 +199,12 @@ class Register extends Component{
                                                     <span className='errors'>{errors.email}</span>}
                                                 </div>
                                         </div>
-
-                                        <div class="ui checkbox">
-                                            <input type="checkbox" readonly="" tabindex="0" value={isCheck}/>
-                                            
-                                            <label>Tôi đồng ý với các <button onClick={()=> history.push("/terms")}>điều khoản</button></label>
-                                        </div>
+                                        <Checkbox
+                                            label={<label>Tôi đồng ý với các <button className="termBtn" onClick={()=> history.push("/terms")}>điều khoản</button></label>}
+                                            onChange={this.toggle}
+                                            checked={this.state.checked}
+                                            name='checked'
+                                        />
                                         <div className="spaceErrors">
                                         <span className="errors"> {this.state.errorMessage} </span>
                                         </div>
