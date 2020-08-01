@@ -6,6 +6,10 @@ This is how our website look like:
 
 ![LoginAndRegister](https://i.imgur.com/NNCqNTS.png)
 
+![LoginPage](https://i.imgur.com/dNI7zh5.png)
+
+![RegisterPage](https://i.imgur.com/UX4ywo2.png)
+
 ![MainPage](https://i.imgur.com/1y9sVK4.png)
 
 ![AddingPoint](https://i.imgur.com/ydj7KUG.png)
@@ -17,6 +21,8 @@ This is how our website look like:
 ![Information](https://i.imgur.com/Hm3RhUy.png)
 
 ![TransactionHistories](https://i.imgur.com/0PwUiWL.png)
+
+![ManagingPoints](https://i.imgur.com/ysNJ0RD.png)
 
 ![MakingWithdrawal](https://i.imgur.com/XhLLvL9.png)
 
