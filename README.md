@@ -18,3 +18,6 @@ This is how our website look like:
 
 ![TransactionHistories](https://i.imgur.com/0PwUiWL.png)
 
+![MakingWithdrawal](https://i.imgur.com/XhLLvL9.png)
+
+
